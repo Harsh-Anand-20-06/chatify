@@ -15,6 +15,7 @@ app.use(cookieParser());
 
 const authRouter = require("./routes/auth");
 const msgRouter = require("./routes/message");
+const userRouter = require("./routes/user");
 
 
 
@@ -24,6 +25,7 @@ app.get("/",(req,res)=>{
 
 app.use("/api/auth",authRouter)
 app.use("/api/msg",msgRouter)
+app.use("/api/user",userRouter)
 
 app.listen(process.env.PORT,()=>{
     console.log("server started!");
