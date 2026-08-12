@@ -2,6 +2,7 @@ import {create} from "zustand";
 import {inMemoryAccessToken} from "../lib/axios";
 import { handleSocketMessage } from "../lib/handleSocketMessage";
 import { useAuthStore } from "./useAuthStore";
+const wsUrl = import.meta.env.VITE_WS_URL;
 
 let reconnectAttempts = 0;
 
@@ -29,7 +30,7 @@ export const useSocketStore = create((set,get)=>({
 
         if(!accessToken) return;
 
-        const newSocket = new WebSocket(`ws://localhost:5000?accesstoken=${accessToken}`);
+        const newSocket = new WebSocket(`${wsUrl}?accesstoken=${accessToken}`);
         set({socket : newSocket});
 
         newSocket.onopen = ()=>{

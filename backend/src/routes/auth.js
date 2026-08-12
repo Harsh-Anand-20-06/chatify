@@ -8,7 +8,7 @@ router.get("/test",arcjetProtection,(req,res)=>{
     res.send("auth test")
 })
 
-// router.use(arcjetProtection)  un-comment after no postman use.
+router.use(arcjetProtection)  //un-comment after no postman use.
 
 router.post("/signin",signin);
 router.post("/login",login);

@@ -24,7 +24,7 @@ export const setAccessToken = function(token){
 }
 
 export const axiosInstance = axios.create({
-    baseURL: "http://localhost:5000/api",
+    baseURL: import.meta.env.VITE_API_URL,
     withCredentials: true, //sends cookies with request
 })
 
@@ -64,7 +64,7 @@ axiosInstance.interceptors.response.use(
 
                 try{
 
-                const res = await axios.get("http://localhost:5000/api/auth/newtoken",{withCredentials:true,});
+                const res = await axios.get(`${import.meta.env.VITE_API_URL}/auth/newtoken`,{withCredentials:true,});
                 const {nayaAccessToken} = res.data;
                 setAccessToken(nayaAccessToken);
                 
