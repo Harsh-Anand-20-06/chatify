@@ -1,7 +1,7 @@
 import { Navigate, Route, Routes } from "react-router"
 import { ChatPage } from "./pages/ChatPage"
 import { LoginPage } from "./pages/LoginPage"
-import { SignUpPage } from "./pages/SignupPage"
+import { SignUpPage } from "./pages/SignUpPage"
 import {Background} from "./components/Background"
 import { useAuthStore } from "./store/useAuthStore"
 import { useEffect } from "react"
