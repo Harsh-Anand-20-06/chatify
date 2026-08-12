@@ -47,6 +47,8 @@ const signin = async function(req,res){
     res.cookie("refreshToken",refreshToken,{
         httpOnly : true,
         secure : true,
+        sameSite : "none",
+        path : "/",
         maxAge : 7*24*60*60*1000,
     })
 
@@ -102,6 +104,8 @@ const login = async function(req,res){
     res.cookie("refreshToken",refreshToken,{
         httpOnly : true,
         secure : true,
+        sameSite : "none",
+        path : "/",
         maxAge : 7*24*60*60*1000,
     })
 
@@ -139,6 +143,8 @@ const logout = async function(req,res){
     res.clearCookie("refreshToken",{
         httpOnly:true,
         secure : true,
+        sameSite : "none",
+        path : "/",
     })
 
     res.status(200).json({
@@ -169,6 +175,8 @@ const logoutAll = async function(req,res){
         res.clearCookie("refreshToken",{
         httpOnly:true,
         secure : true,
+        sameSite : "none",
+        path : "/",
     })
 
     res.status(200).json({
@@ -215,6 +223,8 @@ const issueNewToken = async function(req,res){
     res.clearCookie("refreshToken",{
         httpOnly : true,
         secure : true,
+        sameSite : "none",
+        path : "/",
     });
 
     const nayaRefreshToken = jwt.sign({
@@ -241,6 +251,8 @@ const issueNewToken = async function(req,res){
     res.cookie("refreshToken",nayaRefreshToken,{
         httpOnly : true,
         secure : true,
+        sameSite : "none",
+        path : "/",
         maxAge : 7*24*60*60*1000,
     })
 
