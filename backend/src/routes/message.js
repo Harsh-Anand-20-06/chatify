@@ -1,6 +1,6 @@
 const express = require("express")
 const { isLoggedIn } = require("../middlewares/user")
-const { getAllContacts, getMsgByUser, sendMessage, getChatPartners } = require("../controllers/messageController")
+const { getAllContacts, getMsgByUser, sendMessage, getChatPartners, getUnreadsById } = require("../controllers/messageController")
 const router = express.Router()
 
 router.get("/test",(req,res)=>{
@@ -9,7 +9,9 @@ router.get("/test",(req,res)=>{
 
 router.get("/contacts",isLoggedIn,getAllContacts);
 router.get("/chats",isLoggedIn,getChatPartners);
+router.get("/unreads",isLoggedIn,getUnreadsById);  //put above dynamic route to prevent mismatch
 router.get("/:id",isLoggedIn,getMsgByUser);
 router.post("/send/:id",isLoggedIn,sendMessage);
+
 
 module.exports = router

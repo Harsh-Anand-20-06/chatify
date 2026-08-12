@@ -52,6 +52,8 @@ const signin = async function(req,res){
 
     res.status(200).json({
         "message":"user signed in!",
+        "id":new_user._id,
+        "username":new_user.username,
         accessToken,
     })
 }
@@ -88,6 +90,8 @@ const login = async function(req,res){
         ip : req.ip,
     });
 
+    // console.log("session_id: ",session._id);
+
     const accessToken = jwt.sign({
         id : user._id,
         session_id : session._id,
@@ -103,6 +107,8 @@ const login = async function(req,res){
 
     res.status(200).json({
         "message" : "loggedIn successfully",
+        "id":user._id,
+        "username":user.username,
         accessToken,
     })
 
@@ -176,10 +182,10 @@ const logoutAll = async function(req,res){
 }
 
 const issueNewToken = async function(req,res){
-    const refreshToken = req.cookies.refreshToken;
+   try{ const refreshToken = req.cookies.refreshToken;
 
     if(!refreshToken){
-        return res.status(404).json({
+        return res.status(401).json({
             "message":"refresh token not found!",
         })
     }
@@ -190,8 +196,14 @@ const issueNewToken = async function(req,res){
 
     const session = await sessionModel.findOne({refreshTokenHash:refreshTokenHash});
 
+    if (!session) {
+            return res.status(401).json({
+                message: "Invalid refresh token.",
+            });
+        }
+
     if(session.revoked){
-        return res.status(404).json({
+        return res.status(401).json({
             "message":"this token's session is revoked!"
         })
     }
@@ -235,7 +247,11 @@ const issueNewToken = async function(req,res){
     res.status(200).json({
         "message" : "new access token generated!",
         nayaAccessToken,
-    })
+    })} catch(error){
+        res.status(401).json({
+            message : "error issuing newToken",
+        })
+    }
 
 
 

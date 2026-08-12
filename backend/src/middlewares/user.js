@@ -7,7 +7,7 @@ const isLoggedIn = async function(req,res,next){
   try{
     const accessToken = req.headers['authorization']?.split(' ')[1];
     if(!accessToken){
-        return res.status(400).json({
+        return res.status(401).json({
             "message":"accessToken not found!"
         })
     }
@@ -20,7 +20,7 @@ const isLoggedIn = async function(req,res,next){
     req.currentUser = user;
 
     next();} catch(error){
-        res.status(500).json({
+        res.status(401).json({
             "message":"internal server error at isLoggedIn!",
         })
     }
